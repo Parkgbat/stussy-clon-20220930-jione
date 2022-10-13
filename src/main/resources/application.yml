@@ -1,0 +1,11 @@
+server:
+  port: 8000
+
+spring:
+  mvc:
+    static-path-pattern: /static/**
+
+  security:
+    user:
+      name: test@naver.com
+      password: q1w2e3r4
