@@ -19,7 +19,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .formLogin()
+                .usernameParameter("email")
                 .loginPage("/account/login/")
+                .loginProcessingUrl("/account/login/")
                 .defaultSuccessUrl("/index/");
+
     }
 }

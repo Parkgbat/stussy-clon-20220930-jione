@@ -1,0 +1,12 @@
+.aside-menus {
+    margin-bottom: 20px;
+    padding: 6px 10px;
+    width: 94px;
+    height: 600px;
+
+}
+
+.admin-menus li {
+    margin-bottom: 10px;
+    border-bottom: 1px ;
+}
