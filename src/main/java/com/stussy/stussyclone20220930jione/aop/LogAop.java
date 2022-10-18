@@ -19,25 +19,41 @@ public class LogAop {
     @Pointcut("execution(* com.stussy.stussyclone20220930jione.api.*Api.*(..))")
     private void pointCut() {}
 
-    @Pointcut("@annotation(com.stussy.stussyclone20220930jione.aop.annotation.LogAspect)")
-    private void annotationPointCut() {}
+//    @Pointcut("@annotation(com.stussy.stussyclone20220930jione.aop.annotation.LogAspect)")
+//    private void annotationPointCut() {}
 
     @Around("annotationPointCut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable{
 
-        CodeSignature codeSignature = (CodeSignature)joinPoint.getSignature();
-
-        String className = codeSignature.getDeclaringTypeName();
-        String methodName = codeSignature.getName();
-        String[] parameterNames = codeSignature.getParameterNames();
         Object[] args = joinPoint.getArgs();
-        for(int i = 0; i < parameterNames.length; i++) {
-            log.info("<<< Parameter Info>>> {}:{} >>>[{}:{}]",className, methodName,parameterNames[i], args[i]);
+
+        CodeSignature codeSignature = (CodeSignature) joinPoint.getSignature();
+        String[] argNames = codeSignature.getParameterNames();
+
+        StringBuilder argNameString = new StringBuilder();
+        StringBuilder argDataString = new StringBuilder();
+
+        for(int i = 0; i < args.length; i++) {
+            argNameString.append(argNames[i]);
+            argDataString.append(args[i].toString());
+            if(i < args.length - 1) {
+                argNameString.append(", ");
+                argDataString.append(", ");
+            }
         }
+        log.info("Method Call -- {}.{}({}) >> {}",
+                joinPoint.getSignature().getDeclaringTypeName(),
+                joinPoint.getSignature().getName(),
+                argNameString.toString(),
+                argDataString.toString());
 
         Object result = joinPoint.proceed();
 
-        log.info("<<< Return>>> {}:{} >>>[{}:{}]",className, methodName);
+        log.info("Method Return -- {}.{}({}) >> {}",
+                joinPoint.getSignature().getDeclaringTypeName(),
+                joinPoint.getSignature().getName(),
+                argNameString.toString(),
+                result);
 
         return result;
     }

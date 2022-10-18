@@ -1,7 +1,7 @@
 package com.stussy.stussyclone20220930jione.aop;
 
 
-import com.stussy.stussyclone20220930jione.Exception.CustomValidationException;
+import com.stussy.stussyclone20220930jione.exception.CustomValidationException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

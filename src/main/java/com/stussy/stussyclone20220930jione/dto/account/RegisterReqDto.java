@@ -1,7 +1,9 @@
-package com.stussy.stussyclone20220930jione.dto;
+package com.stussy.stussyclone20220930jione.dto.account;
 
+import com.stussy.stussyclone20220930jione.domain.User;
 import com.stussy.stussyclone20220930jione.dto.Validation.ValidationGroups;
 import lombok.Data;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -31,6 +33,16 @@ public class RegisterReqDto {
     @Size(min=8,max=16,message = "비밀번호는 8글자부터 16글자까지 입력하여야합니다.",groups = ValidationGroups.SizeGroup.class)
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[~!@#$%^&*_])[a-zA-Z\\d-~!@#$%^&*_]*$",groups = ValidationGroups.PatternGroup.class)
     private String password;
+
+    public User toUserEntity() {
+        return User.builder()
+                .username(email)
+                .password(new BCryptPasswordEncoder().encode(password))
+                .name(firstName + lastName)
+                .email(email)
+                .role_id(1)
+                .build();
+    }
 
 
 }

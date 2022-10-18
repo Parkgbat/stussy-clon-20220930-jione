@@ -1,4 +1,4 @@
-package com.stussy.stussyclone20220930jione.Exception;
+package com.stussy.stussyclone20220930jione.exception;
 
 import lombok.Getter;
 
