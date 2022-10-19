@@ -1,4 +1,4 @@
-package handler;
+package com.stussy.stussyclone20220930jione.api.advice;
 
 import com.stussy.stussyclone20220930jione.dto.CMRespDto;
 import com.stussy.stussyclone20220930jione.exception.CustomInternalServerErrorException;
@@ -14,15 +14,13 @@ public class RestControllerExceptionHandler {
 
     @ExceptionHandler(CustomValidationException.class)
     public ResponseEntity<?> validationErrorException(CustomValidationException e) {
-        return ResponseEntity
-                .badRequest()
-                .body(new CMRespDto<>(-1, e.getMessage(), e.getErrorMap()));
+
+        return ResponseEntity.badRequest().body(new CMRespDto<>(e.getMessage(),e.getErrorMap()));
     }
 
     @ExceptionHandler(CustomInternalServerErrorException.class)
-    public ResponseEntity<?> internalServerErrorException(CustomInternalServerErrorException e){
-        return ResponseEntity
-                .internalServerError()
-                .body(new CMRespDto<>(-1, e.getMessage(), null));
+    public ResponseEntity<?> internalServerErrorException(CustomInternalServerErrorException e) {
+
+        return ResponseEntity.internalServerError().body(new CMRespDto<>(e.getMessage(), null));
     }
 }

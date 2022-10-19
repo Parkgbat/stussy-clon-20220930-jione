@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.AccountService;
+import com.stussy.stussyclone20220930jione.service.AccountService;
+
+import java.net.URI;
 
 @RequestMapping("/api/account")
 @RestController
@@ -23,12 +25,13 @@ public class AccountApi {
 
     @LogAspect
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Validated(ValidationSequence.class) @RequestBody  RegisterReqDto registerReqDto, BindingResult bindingResult) throws Exception {
+    public ResponseEntity<?> register(@Validated(ValidationSequence.class) @RequestBody RegisterReqDto registerReqDto,
+                                      BindingResult bindingResult) throws Exception {
 
-        accountService.checkDuplicateEmail(registerReqDto.getEmail());
+        accountService.duplicateEmail(registerReqDto);
         accountService.register(registerReqDto);
-        return ResponseEntity.created(null).body(new CMRespDto<> ( "회원가입 성공", registerReqDto));
 
+        return ResponseEntity.created(URI.create("/account/login")).body(new CMRespDto<>("회원가입 성공", registerReqDto.getEmail()));
     }
 
 

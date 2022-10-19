@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <link rel="stylesheet" href="/static\css\style.css">
     <link rel="stylesheet" href="/static\css\header.css">
     <link rel="stylesheet" href="/static/css/aside.css">
     <link rel="stylesheet" href="/static/css/admin.css">
-    <title>Title</title>
 </head>
 <body>
 <div id="container">
@@ -57,10 +58,10 @@
         <script src="/static/js/header/header.js"></script>
     </header>
     <main>
-        <div class="registration">
-            <h1 class="registration-title">ACCOUNT</h1>
-            <div class="registration-container">
-                <aside class="aside-menus">
+        <div class="admin">
+            <h1 class="admin-title">ACCOUNT</h1>
+            <div class="admin-container">
+                <aside class="admin-menus">
                     <ul>
                         <li><a href="/admin/products">상품 조회</a></li>
                         <li><a href="/admin/products">상품 정보</a></li>
@@ -68,7 +69,7 @@
                         <li><a href="/admin/products">로그아웃</a></li>
                     </ul>
                 </aside>
-                <section class="regist-main">
+                <section class="admin-main">
                     <div class="regist-header">
                         <select class="product-inputs">
                             <option value="none">상품 종류</option>
@@ -76,11 +77,12 @@
                             <option value="DEMIN">DEMIN</option>
                         </select>
                         <input type="text" class="product-inputs" placeholder="상품명">
-                        <input type="text" class="product-inputs" placeholder="가격">
+                        <input type="number" step="100"  class="product-inputs" placeholder="가격">
                     </div>
                     <div class="regist-info regist-info-invisible">
                         <textarea class="product-inputs" placeholder="간단 설명"></textarea>
                         <textarea class="product-inputs" placeholder="상세 설명"></textarea>
+                        <textarea class="product-inputs" placeholder="추가 설명"></textarea>
                         <textarea class="product-inputs" placeholder="관리 설명"></textarea>
                         <textarea class="product-inputs" placeholder="배송 설명"></textarea>
                     </div>

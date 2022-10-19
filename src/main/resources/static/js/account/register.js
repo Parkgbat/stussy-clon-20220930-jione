@@ -1,49 +1,58 @@
-const registerButton = document.querySelector(".account-button");
-
-registerButton.onclick = () => {
-    const accountInputs = document.querySelectorAll(".account-input");
+const registerButton = document.querySelector(".login-button");
+const registerInputs = document.querySelectorAll(".login-input");
 
 
-    let user = {
-        lastName: accountInputs[0].value,
-        firstName: accountInputs[1].value,
-        email:accountInputs[2].value,
-        password:accountInputs[3].value,
-    }
-
-    $.ajax ({
-        async: false,
-        type:"post",
-        url:"/api/account/register",
-        contentType: "application/json",
-        data: JSON.stringify(user),
-        dataType: "json",
-        success: (response) => {
-           
-        },
-        error: (error) => {
-          
-            console.log(error.responseJSON.data);
-            loadErrorMessage(error.responseJSON.data);
+for(let i = 0; i < registerInputs.length; i++) {
+    registerInputs[i].onkeyup = () => {
+        if(window.event.keyCode == 13){
+            if(i != 3) {
+                registerInputs[i + 1].focus();
+            }else {
+                registerButton.click();
+            }
         }
-    })
-    $.ajax();
+    }
 }
 
-function loadErrorMessage(errors) {
-    const errorList = document.querySelector(".errors")
-    const errorMsgs = document.querySelector(".error-msgs")
-    const errorArray=Object.values(errors)
+registerButton.onclick = () => {
 
+    let registerInfo = {
+        lastName: registerInputs[0].value,
+        firstName: registerInputs[1].value,
+        email: registerInputs[2].value,
+        password: registerInputs[3].value
+    }
 
-    errorMsgs.innerHTML ="";
+    $.ajax({
+        async: false,
+        type: "post",
+        url: "/api/account/register",
+        contentType: "application/json",
+        data: JSON.stringify(registerInfo),
+        dataType: "json",
+        success: (response) => {
+            location.replace("/account/login");
+        },
+        error: (error) => {
+            console.log(error);
+            validationError(error.responseJSON.data);
+        }
+    });
+}
 
-    errorArray.forEach(error => {
-        errorMsgs.innerHTML += `
-        <li>${error}</li>
+function validationError(error) {
+    const accountErrors = document.querySelector(".account-errors");
+    const accountErrorList = accountErrors.querySelector("ul");
+
+    const errorValues = Object.values(error);
+
+    accountErrorList.innerHTML = "";
+
+    errorValues.forEach((value) => {
+        accountErrorList.innerHTML += `
+            <li>${value}</li>
         `;
     });
 
-    errorList.classList.remove("errors-invisible");
-
+    accountErrors.classList.remove("errors-invisible");
 }

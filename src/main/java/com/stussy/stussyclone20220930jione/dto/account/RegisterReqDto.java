@@ -34,7 +34,7 @@ public class RegisterReqDto {
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[~!@#$%^&*_])[a-zA-Z\\d-~!@#$%^&*_]*$",groups = ValidationGroups.PatternGroup.class)
     private String password;
 
-    public User toUserEntity() {
+    public User toEntity() {
         return User.builder()
                 .username(email)
                 .password(new BCryptPasswordEncoder().encode(password))
